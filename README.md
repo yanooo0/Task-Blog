@@ -18,4 +18,4 @@ jar 디렉토리의 blog-0.0.1-SNAPSHOT.jar
 
 ## API 명세
 
-http://localhost:8080/swagger-ui/index.html
+서버 실행 후 http://localhost:8080/swagger-ui/index.html
