@@ -26,6 +26,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	runtimeOnly 'com.h2database:h2:1.4.197'
+
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 }
 
 tasks.named('test') {

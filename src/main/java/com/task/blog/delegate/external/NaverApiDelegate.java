@@ -4,8 +4,8 @@ import com.task.blog.shared.dto.BlogDto;
 import com.task.blog.shared.dto.DocumentDto;
 import com.task.blog.shared.dto.NaverBlogDto;
 import com.task.blog.shared.dto.condition.BlogSearchCondition;
-import com.task.blog.shared.exception.InvalidRequestException;
 import com.task.blog.shared.exception.ApiRequestUnauthorizedException;
+import com.task.blog.shared.exception.InvalidRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -70,6 +70,9 @@ public class NaverApiDelegate implements ExternalApiDelegate {
     }
 
     private void validateBlogSearchCondition(BlogSearchCondition blogSearchCondition) {
+        if (Objects.isNull(blogSearchCondition.getQuery())) {
+            throw new InvalidRequestException("query는 필수 값 입니다.");
+        }
         if (blogSearchCondition.getPage() * blogSearchCondition.getSize() > 1000) {
             throw new InvalidRequestException("페이지와 사이즈의 곱은 1000을 넘을 수 없습니다.");
         }

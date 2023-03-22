@@ -34,6 +34,7 @@ public class DocumentDto {
                             .blogname(item.getBloggername())
                             .contents(item.getDescription())
                             .url(item.getBloggerlink())
+                            .title(item.getTitle())
                             .datetime(LocalDate.parse(item.getPostdate(), DateTimeFormatter.ofPattern("yyyyMMdd")).atStartOfDay(ZoneId.systemDefault()))
                             .build()
             );

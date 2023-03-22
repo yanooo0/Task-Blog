@@ -2,8 +2,8 @@ package com.task.blog.delegate.external;
 
 import com.task.blog.shared.dto.BlogDto;
 import com.task.blog.shared.dto.condition.BlogSearchCondition;
-import com.task.blog.shared.exception.InvalidRequestException;
 import com.task.blog.shared.exception.ApiRequestUnauthorizedException;
+import com.task.blog.shared.exception.InvalidRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -43,8 +43,6 @@ public class KaKaoApiDelegate implements ExternalApiDelegate {
                 .queryParam("sort", blogSearchCondition.getSortType().getKakao())
                 .build()
                 .toUri();
-        System.out.println("uri = " + uri);
-        System.out.println("apiKey = " + apiKey);
 
         try {
             ResponseEntity<BlogDto> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, new HttpEntity<>(headers), BlogDto.class);
@@ -60,6 +58,9 @@ public class KaKaoApiDelegate implements ExternalApiDelegate {
     }
 
     private void validateBlogSearchCondition(BlogSearchCondition blogSearchCondition) {
+        if (Objects.isNull(blogSearchCondition.getQuery())) {
+            throw new InvalidRequestException("query는 필수 값 입니다.");
+        }
         if (blogSearchCondition.getPage() > 50 || blogSearchCondition.getPage() < 1) {
             throw new InvalidRequestException("페이지는 1 - 50 사이의 값 이어야합니다");
         }
